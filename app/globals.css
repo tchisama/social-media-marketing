@@ -74,3 +74,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* Target the weekday labels */
+.react-calendar__month-view__weekdays__weekday {
+  /* Add your styles here */
+  font-size: 16px;
+  font-weight: bold;
+  padding:  30px 8px;
+  /* Add any other styles you want */
+}
+
+
+.react-calendar__navigation {
+  font-size: 25px; /* Font size */
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-weight: bold; /* Font weight */
+  padding: 10px; /* Padding */
+  border-radius: 5px; /* Rounded corners */
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 40px;
+}

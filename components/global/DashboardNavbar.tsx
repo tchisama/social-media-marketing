@@ -5,7 +5,7 @@ import React from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Button } from '../ui/button'
 import { useTheme } from 'next-themes'
-import {Sun,Moon,CalendarPlus} from "lucide-react"
+import {Sun,Moon,CalendarPlus,User2} from "lucide-react"
 
 type Props = {}
 
@@ -26,34 +26,33 @@ const DashboardNavbar = (props: Props) => {
             <NavigationMenu>
                 <NavigationMenuList>
 
-                    <NavigationMenuItem>
-                    <NavigationMenuTrigger>Dashboard</NavigationMenuTrigger>
-                    <NavigationMenuContent >
-                        <div className='w-[300px]'>
-                            <NavigationMenuLink></NavigationMenuLink>
-                        </div>
-                    </NavigationMenuContent>
-                    </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <Link href="/dashboard" legacyBehavior passHref>
+                        <NavigationMenuLink className={"mx-2"}>
+                        Documentation
+                        </NavigationMenuLink>
+                    </Link>
+                </NavigationMenuItem>
 
-                    <NavigationMenuItem>
+                    <NavigationMenuItem className='rounded-xl'>
                     <NavigationMenuTrigger>Publish</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <div className='min-w-[500px] grid gap-2 grid-cols-3 p-4 '>
-                            <Link href='/dashboard/calendar' className='flex p-3 justify-end flex-col gap-2 rounded-lg bg-[#eee] dark:bg-[#eee1]'>
+                        <div className='min-w-[500px] grid gap-2 grid-cols-3 p-3 '>
+                            <Link href='/dashboard/calendar' className='flex p-3 justify-end flex-col gap-2 rounded-lg bg-secondary '>
                                 <CalendarPlus size={40}/>
                                 <NavigationMenuLink>Calendar</NavigationMenuLink>
                                 <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet </p>
                             </Link>
                             <div className='flex flex-col col-span-2'>
-                                <Link href='/dashboard/calendar' className='hover:bg-[#eee1] p-2 px-4 rounded-lg'>
+                                <Link href='/dashboard/calendar' className='hover:bg-secondary p-2 px-4 rounded-lg'>
                                         <h3>Scheduled</h3>
                                         <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet </p>
                                 </Link>
-                                <Link href='/dashboard/calendar' className='hover:bg-[#eee1] p-2 px-4 rounded-lg'>
+                                <Link href='/dashboard/calendar' className='hover:bg-secondary p-2 px-4 rounded-lg'>
                                         <h3>Sent</h3>
                                         <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet consectetur  </p>
                                 </Link>
-                                <Link href='/dashboard/calendar' className='hover:bg-[#eee1] p-2 px-4 rounded-lg'>
+                                <Link href='/dashboard/calendar' className='hover:bg-secondary p-2 px-4 rounded-lg'>
                                         <h3>Undelivered</h3>
                                         <p className='text-sm opacity-70'>Lorem ipsum onsectetur adipisicing elit. </p>
                                 </Link>
@@ -65,7 +64,19 @@ const DashboardNavbar = (props: Props) => {
                     <NavigationMenuItem>
                     <NavigationMenuTrigger>Profile</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <NavigationMenuLink></NavigationMenuLink>
+                        <div className='min-w-[500px] grid gap-2 grid-cols-3 p-3 '>
+                            <Link href='/dashboard/calendar' className='flex p-3 justify-end pt-8 flex-col gap-2 rounded-lg bg-secondary'>
+                                <User2 size={40}/>
+                                <NavigationMenuLink>Add Profile</NavigationMenuLink>
+                                <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet </p>
+                            </Link>
+                            <div className='flex flex-col col-span-2'>
+                                <Link href='/dashboard/calendar' className='hover:bg-secondary p-2 px-4 rounded-lg'>
+                                        <h3>My profiles</h3>
+                                        <p className='text-sm opacity-70'>Lorem ipsum onsectetur adipisicing elit. </p>
+                                </Link>
+                            </div>
+                        </div>
                     </NavigationMenuContent>
                     </NavigationMenuItem>
 

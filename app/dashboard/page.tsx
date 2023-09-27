@@ -5,9 +5,7 @@ type Props = {}
 
 const Page = (props: Props) => {
   return (
-    <div className=' container '>
-        <DashboardNavbar />
-    </div>
+    "hello"
   ) 
 }
 export default Page
