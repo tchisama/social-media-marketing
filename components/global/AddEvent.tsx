@@ -19,6 +19,23 @@ type Props = {}
 function AddEvent({}: Props) {
   const {isOpen, onOpen, onClose} = useStoreModal()
   const [date, setDate] = React.useState<Date>()
+  const [profiles,setProfiles]= React.useState([
+    {
+      name:'Instagram',
+      check:false,
+      icon:<InstagramIcon size={20} />
+    },
+    {
+      name:'Facebook',
+      check:false,
+      icon:<FacebookIcon size={20} />
+    },
+    {
+      name:'Youtube',
+      check:false,
+      icon:<Youtube size={20} />
+    }
+  ])
  
   return (
     <Dialog onOpenChange={onClose} open={isOpen}>
@@ -28,20 +45,21 @@ function AddEvent({}: Props) {
         </DialogHeader>
         <Separator/>
         <div className='my-4 flex gap-2'>
-          <div className="flex p-2 bg-secondary rounded-sm px-4 items-center space-x-3">
-            <Label htmlFor="airplane-mode" className='flex gap-2 items-center'><FacebookIcon size={20} />Facebook</Label>
-          </div>
-          <div className="flex p-2 bg-secondary rounded-sm px-4 items-center space-x-3">
-            <Label htmlFor="airplane-mode" className='flex gap-2 items-center'><InstagramIcon size={20} />Instagram</Label>
-          </div>
-          <div className="flex p-2 bg-secondary rounded-sm px-4 items-center space-x-3">
-            <Label htmlFor="airplane-mode" className='flex gap-2 items-center'><Youtube size={20} />Youtube</Label>
-          </div>
+          {
+            profiles.map((profile)=>{
+              return(
+              <Button onClick={()=>{setProfiles(profiles.map((p)=>p.name===profile.name?{...p,check:!p.check}:p))}} variant={profile.check?"default":"outline"} key={profile.name} className="flex p-2 border rounded-sm px-4 items-center space-x-3">
+                  {profile.icon}
+                  <Label htmlFor={profile.name} className='flex gap-2 items-center'>{profile.name}</Label>
+                </Button>
+              )
+              })
+            }
           <Button className='flex gap-2'><PlusCircle size={20} />Add</Button>
         </div>
         <Textarea className='min-h-[200px]' placeholder='type your post content here'/>
         <div className='flex gap-2'>
-          <Button variant={"secondary"} size={"icon"}><Upload/></Button>
+          <Button className='flex gap-2 ' variant={"secondary"} size={"default"}><span>Upload media</span><Upload size={20}/></Button>
           <Button variant={"secondary"} size={"icon"}><Smile/></Button>
         </div>
 
