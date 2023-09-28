@@ -5,7 +5,7 @@ type Props = {}
 
 const Page = (props: Props) => {
   return (
-    "hello"
+    <div></div>
   ) 
 }
 export default Page

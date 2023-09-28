@@ -7,10 +7,10 @@ type Props = {
 
 function layout({children}: Props) {
   return (
-    <div className=' container '>
-        <DashboardNavbar />
-        {children}
-    </div>
+      <div className=' container '>
+          <DashboardNavbar />
+          {children}
+      </div>
   )
 }
 
