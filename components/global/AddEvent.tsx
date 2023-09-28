@@ -29,7 +29,7 @@ function AddEvent({}: Props) {
   const {events, setEvents,selectedDate} = useEventsStore()
   const [content,setContent]= React.useState('')
   const [note,setNote]= React.useState('')
-  const [time,setTime]= React.useState('')
+  const [time,setTime]= React.useState("")
   const [profiles,setProfiles]= React.useState<profile[]>([
     {
       name:'Instagram',
@@ -58,10 +58,14 @@ function AddEvent({}: Props) {
         platforms:profiles.filter((p)=>p.check).map((p)=>p.name),
         time,
       }]);
+      setProfiles(p=>p.map((p)=>({...p,check:false})))
+      setContent('')
+      setNote("")
+      setTime("")
     }
   };
 
-  const validate =()=> profiles.filter((p)=>p.check).length>0
+  const validate =()=> profiles.filter((p)=>p.check).length>0&&content.length>0&&time.length>0
 
   return (
     <Dialog onOpenChange={onClose} open={isOpen}>
@@ -114,7 +118,7 @@ function AddEvent({}: Props) {
             />
           </PopoverContent>
         </Popover>
-        <Input value={time} onInput={(e)=>{setTime((e.target as HTMLInputElement).value)}} className='w-[120px]' placeholder='time'/>
+        <Input type='time' value={time} onInput={(e)=>{setTime((e.target as HTMLInputElement).value)}} className='w-[150px]' placeholder='H'/>
         </div>
 
                 <DialogFooter>

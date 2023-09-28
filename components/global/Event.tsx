@@ -8,7 +8,7 @@ type Props = {
 
 const EventC = ({event}: Props) => {
   return (
-    <div className="w-full text-sm flex flex-col items-start gap-1 rounded-sm p-2 border hover:border-primary bg-secondary">
+    <div className="w-full text-sm flex flex-col items-start gap-1 group-hover:bg-background rounded-sm p-2 border hover:border-primary bg-secondary">
         <div className='flex p-1 gap-1 justify-between w-full'>
         <div className='flex gap-1'>
             {
