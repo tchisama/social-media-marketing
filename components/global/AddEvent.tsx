@@ -13,13 +13,24 @@ import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import { Input } from '../ui/input'
 import { DialogClose } from '@radix-ui/react-dialog'
+import { useEventsStore } from '@/hooks/events-store'
 
 type Props = {}
 
+
+interface profile {
+  name:("Facebook"|"Instagram"|"Youtube"),
+  check:boolean,
+  icon:React.ReactNode
+}
 function AddEvent({}: Props) {
   const {isOpen, onOpen, onClose} = useStoreModal()
   const [date, setDate] = React.useState<Date>()
-  const [profiles,setProfiles]= React.useState([
+  const {events, setEvents,selectedDate} = useEventsStore()
+  const [content,setContent]= React.useState('')
+  const [note,setNote]= React.useState('')
+  const [time,setTime]= React.useState('')
+  const [profiles,setProfiles]= React.useState<profile[]>([
     {
       name:'Instagram',
       check:false,
@@ -37,6 +48,21 @@ function AddEvent({}: Props) {
     }
   ])
  
+
+  const addEvent = () => {
+    if(profiles) {
+      setEvents([...events, {
+        date:selectedDate,
+        content,
+        note,
+        platforms:profiles.filter((p)=>p.check).map((p)=>p.name),
+        time,
+      }]);
+    }
+  };
+
+  const validate =()=> profiles.filter((p)=>p.check).length>0
+
   return (
     <Dialog onOpenChange={onClose} open={isOpen}>
     <DialogContent className='max-w-[700px]'>
@@ -57,7 +83,7 @@ function AddEvent({}: Props) {
             }
           <Button className='flex gap-2'><PlusCircle size={20} />Add</Button>
         </div>
-        <Textarea className='min-h-[200px]' placeholder='type your post content here'/>
+        <Textarea value={content} onInput={(e)=>{setContent((e.target as HTMLInputElement).value)}} className='min-h-[200px]' placeholder='type your post content here'/>
         <div className='flex gap-2'>
           <Button className='flex gap-2 ' variant={"secondary"} size={"default"}><span>Upload media</span><Upload size={20}/></Button>
           <Button variant={"secondary"} size={"icon"}><Smile/></Button>
@@ -88,15 +114,15 @@ function AddEvent({}: Props) {
             />
           </PopoverContent>
         </Popover>
-        <Input className='w-[120px]' placeholder='time'/>
+        <Input value={time} onInput={(e)=>{setTime((e.target as HTMLInputElement).value)}} className='w-[120px]' placeholder='time'/>
         </div>
 
                 <DialogFooter>
                   <DialogClose>
                     <Button variant={"outline"}>Close</Button>
                   </DialogClose>
-                  <DialogClose>
-                    <Button>Create</Button>
+                  <DialogClose >
+                    <Button disabled={!validate()} onClick={addEvent}>Create</Button>
                   </DialogClose>
                 </DialogFooter>
     </DialogContent>

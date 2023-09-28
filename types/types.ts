@@ -1,5 +1,7 @@
 export interface Event {
     date: Date;
-    title: string;
-    description: string;
+    content: string;
+    note:string;
+    platforms: ("Facebook"|"Instagram"|"Youtube")[];
+    time: string;
 }

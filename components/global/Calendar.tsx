@@ -7,6 +7,7 @@ import { Facebook, Loader, PlusCircleIcon, Youtube } from 'lucide-react';
 import Calendar from 'react-calendar';
 import { Button } from '../ui/button';
 import { Event } from '@/types/types';
+import { useEventsStore } from '@/hooks/events-store';
 
 type ValuePiece = Date | null;
 
@@ -19,24 +20,9 @@ const CalendarC = (props: Props) => {
   const { isOpen, onOpen, onClose } = useStoreModal();
 
   // Step 1: Define an initial state for events
-  const [events, setEvents] = useState<Event[]>([]);
+  const {events, setEvents , setSelectedDate} = useEventsStore();
 
   // Step 2: Create a function to add events to the state
-  const addEvent = (eventDate: Event) => {
-    setEvents((prevEvents) => [...prevEvents, eventDate]);
-  };
-  React.useEffect(() => {
-    addEvent({
-        date:new Date('2023-09-29'),
-        title:"Event 1",
-        description:"Lorem ipsum"
-    });
-    addEvent({
-        date:new Date('2023-09-30'),
-        title:"Event 1",
-        description:"Lorem ipsum"
-    });
-  }, [])
   
 
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
@@ -53,7 +39,13 @@ const CalendarC = (props: Props) => {
       // Check if the date matches an event date in the state
       if (events.some((eventDate) => date.toDateString() === eventDate.date.toDateString())) {
         // Return custom content for the event date
-        return <EventC />;
+        return (
+        events.filter((eventDate) => date.toDateString() === eventDate.date.toDateString()).map((eventDate) => {
+            return(
+                <EventC event={eventDate}/>
+            )
+        })
+        )
       } else {
         return (
           <PlusCircleIcon
@@ -92,7 +84,7 @@ const CalendarC = (props: Props) => {
             className={'w-full'}
             tileClassName={tileClassName}
             tileContent={tileContent}
-            onClickDay={(e) => onOpen()}
+            onClickDay={(e) => {setSelectedDate(e);onOpen()}}
             formatShortWeekday={formatFullWeekday}
           />
         </CardContent>

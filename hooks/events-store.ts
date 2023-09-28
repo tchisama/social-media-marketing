@@ -4,10 +4,14 @@ import {create} from "zustand";
 interface useStoreModalStore {
     events:Event[];
     setEvents:(events:Event[])=>void;
+    selectedDate:Date;
+    setSelectedDate:(date:Date)=>void
 }
 
 
-export const useStoreModal = create<useStoreModalStore>((set)=>({
+export const useEventsStore = create<useStoreModalStore>((set)=>({
     events:[],
-    setEvents:(events:Event[])=>set({events})
+    setEvents:(events:Event[])=>set({events}),
+    selectedDate:new Date(),
+    setSelectedDate:(date:Date)=>set({selectedDate:date})
 }))
