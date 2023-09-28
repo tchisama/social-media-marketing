@@ -30,6 +30,8 @@ function AddEvent({}: Props) {
   const [content,setContent]= React.useState('')
   const [note,setNote]= React.useState('')
   const [time,setTime]= React.useState("")
+  const [fileInputKey, setFileInputKey] = React.useState(0);
+  const [file,setFile]= React.useState<string | undefined>(undefined)
   const [profiles,setProfiles]= React.useState<profile[]>([
     {
       name:'Instagram',
@@ -57,6 +59,7 @@ function AddEvent({}: Props) {
         note,
         platforms:profiles.filter((p)=>p.check).map((p)=>p.name),
         time,
+        file,
       }]);
       setProfiles(p=>p.map((p)=>({...p,check:false})))
       setContent('')
@@ -66,6 +69,34 @@ function AddEvent({}: Props) {
   };
 
   const validate =()=> profiles.filter((p)=>p.check).length>0&&content.length>0&&time.length>0
+
+
+  const handleButtonClick = () => {
+    // Programmatically trigger a click event on the file input
+    document.getElementById('upload')?.click();
+  };
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files){
+      const selectedFile = e.target?.files[0];
+      if (selectedFile) {
+        // Check if the selected file is an image (you can add more image file extensions if needed)
+        if (selectedFile.type.startsWith('image/')) {
+          console.log('Selected file is an image:', selectedFile);
+          const reader = new FileReader();
+          reader.onload = () => {
+            setFile(reader.result as string);
+          };
+          reader.readAsDataURL(selectedFile);
+          // Handle the selected image here
+        } else {
+          alert('Please select an image file (e.g., .jpg, .png, .gif).');
+        }
+
+        // Reset the file input by changing its key to force re-render
+        setFileInputKey(fileInputKey + 1);
+      }
+    }
+  };
 
   return (
     <Dialog onOpenChange={onClose} open={isOpen}>
@@ -89,11 +120,22 @@ function AddEvent({}: Props) {
         </div>
         <Textarea value={content} onInput={(e)=>{setContent((e.target as HTMLInputElement).value)}} className='min-h-[200px]' placeholder='type your post content here'/>
         <div className='flex gap-2'>
-          <Button className='flex gap-2 ' variant={"secondary"} size={"default"}><span>Upload media</span><Upload size={20}/></Button>
+          <div>
+            <input onChange={handleFileInputChange} accept='image/*' id='upload' className='hidden' type='file'>
+            </input>
+            <label htmlFor='upload'>
+              <Button onClick={handleButtonClick} className='flex gap-2 ' variant={"secondary"} size={"default"}><span>Upload media</span><Upload size={20}/></Button>
+            </label>
+          </div>
           <Button variant={"secondary"} size={"icon"}><Smile/></Button>
         </div>
 
         <Separator/>
+        <div>
+          {
+            file && <img className='h-[200px] rounded-md' src={file} alt="" />
+          }
+        </div>
 
         <div className='flex gap-2'>
         <Popover>

@@ -4,4 +4,5 @@ export interface Event {
     note:string;
     platforms: ("Facebook"|"Instagram"|"Youtube")[];
     time: string;
+    file:string|undefined;
 }

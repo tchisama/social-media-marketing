@@ -74,7 +74,7 @@ const CalendarC = (props: Props) => {
               <h1 className="text-4xl font-bold">Calendar</h1>
               <h3 className="text-muted-foreground">Add events that will get fired on time</h3>
             </div>
-            <Button className="flex gap-2">
+            <Button onClick={onOpen} className="flex gap-2">
               <PlusCircleIcon size={20} /> create new
             </Button>
           </div>
