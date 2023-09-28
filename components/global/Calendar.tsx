@@ -17,7 +17,7 @@ type Props = {};
 
 const CalendarC = (props: Props) => {
   const [value, onChange] = useState<Value>(new Date());
-  const { isOpen, onOpen, onClose } = useStoreModal();
+  const {onOpen  } = useStoreModal();
 
   // Step 1: Define an initial state for events
   const {events, setEvents , setSelectedDate} = useEventsStore();
@@ -66,7 +66,6 @@ const CalendarC = (props: Props) => {
 
   return (
     <div className="my-2 ">
-      <AddEvent />
       <Card className="border-none ">
         <CardContent>
           <div className="flex my-6 justify-between items-end">

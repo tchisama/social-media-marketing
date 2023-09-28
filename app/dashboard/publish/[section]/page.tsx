@@ -4,20 +4,26 @@ import CalendarC from "@/components/global/Calendar"
 import Scheduled from "@/components/global/Scheduled"
 import { Calendar } from "@/components/ui/calendar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useRouter } from "next/router"
 
-type Props = {}
+type Props = {
+  params: {
+    section: string
+  }
+}
 
-const page = (props: Props) => {
+const page = ({params}: Props) => {
+
   return (
     <div className='my-12 '>
-            <Tabs defaultValue="scheduled" className="w-full">
+            <Tabs defaultValue={params.section} className="w-full">
               <TabsList className="mx-6">
-                <TabsTrigger value="salendar">Calendar</TabsTrigger>
+                <TabsTrigger value="calendar">Calendar</TabsTrigger>
                 <TabsTrigger value="scheduled">Scheduled</TabsTrigger>
                 <TabsTrigger value="sent">Sent</TabsTrigger>
                 <TabsTrigger value="sndelivered">Undelivered</TabsTrigger>
               </TabsList>
-              <TabsContent value="salendar">
+              <TabsContent value="calendar">
                   <CalendarC/>
               </TabsContent>
               <TabsContent value="scheduled">

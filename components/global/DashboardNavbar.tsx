@@ -38,13 +38,13 @@ const DashboardNavbar = (props: Props) => {
                     <NavigationMenuTrigger>Publish</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <div className='min-w-[500px] grid gap-2 grid-cols-3 p-3 '>
-                            <Link href='/dashboard/calendar' className='flex p-3 justify-end flex-col gap-2 rounded-lg bg-secondary '>
+                            <Link href='/dashboard/publish/calendar' className='flex p-3 justify-end flex-col gap-2 rounded-lg bg-secondary '>
                                 <CalendarPlus size={40}/>
                                 <NavigationMenuLink>Calendar</NavigationMenuLink>
                                 <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet </p>
                             </Link>
                             <div className='flex flex-col col-span-2'>
-                                <Link href='/dashboard/calendar' className='hover:bg-secondary p-2 px-4 rounded-lg'>
+                                <Link href='/dashboard/publish/scheduled' className='hover:bg-secondary p-2 px-4 rounded-lg'>
                                         <h3>Scheduled</h3>
                                         <p className='text-sm opacity-70'>Lorem ipsum dolor sit amet </p>
                                 </Link>

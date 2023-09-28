@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
 import { useStoreModal } from '@/hooks/use-store-modal'
 import { Switch } from '../ui/switch'
@@ -61,12 +61,16 @@ function AddEvent({}: Props) {
         time,
         file,
       }]);
+    }
+  };
+
+  React.useEffect(()=>{
       setProfiles(p=>p.map((p)=>({...p,check:false})))
       setContent('')
       setNote("")
       setTime("")
-    }
-  };
+      setFile("")
+  },[])
 
   const validate =()=> profiles.filter((p)=>p.check).length>0&&content.length>0&&time.length>0
 

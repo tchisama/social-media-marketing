@@ -11,12 +11,12 @@ type Props = {
 
 function EventCard({event}: Props) {
   return (
-                    <Card className='p-1 h-fit'>
-                        <div className='aspect-video bg-muted overflow-hidden w-full rounded-md'>
+                    <Card className='p-1 h-fit shadow'>
                             {event.file &&
-                            <img className='w-full h-full' src={event.file} alt="" />
+                                <div className='aspect-video bg-muted overflow-hidden w-full rounded-md'>
+                                    <img className='w-full h-full object-contain' src={event.file} alt="" />
+                                </div>
                             }
-                        </div>
                         <div className=''>
                         <CardContent className='pt-3'>
                             <div className='flex gap-2 items-center py-2'>
@@ -45,25 +45,23 @@ function EventCard({event}: Props) {
                                             default :
                                                 break;
                                         }
-                                    }).map((m,i)=>i!=0?["|",m]:[m]).flat(Infinity)
+                                    })
+                                    // .map((m,i)=>i!=0?["|",m]:[m]).flat(Infinity)
                                 }
+                                <div className='p-1 flex gap-2 items-center text-sm rounded-md'>
+                                    <Calendar size={17}></Calendar>
+                                    {/* get the dd/mm/yy from the date and put inside span */}
+                                    <span>{
+                                        `${event.date.getDate()}/${event.date.getMonth()+1}/${event.date.getFullYear()}`
+                                        }</span>
+                                    |
+                                    <Clock size={17}></Clock>
+                                    <span>{event.time}</span>
+                                </div>
                             </div>
-                            <div className='p-1 flex gap-2 items-center  rounded-md'>
-                                <Calendar size={17}></Calendar>
-                                {/* get the dd/mm/yy from the date and put inside span */}
-                                <span>{
-                                    `${event.date.getDate()}/${event.date.getMonth()+1}/${event.date.getFullYear()}`
-                                    }</span>
-                                |
-                                <Clock size={17}></Clock>
-                                <span>{event.time}</span>
-                            </div>
-                        </CardContent>
-                        <Separator/>
-                        <CardContent>
-                            <CardDescription>
-                                {event.content}
-                            </CardDescription>
+                        <CardDescription>
+                            {event.content}
+                        </CardDescription>
                         </CardContent>
                         <CardFooter className='flex justify-end'>
                             <Button className='flex gap-2' variant={"outline"}>Go to Event <ArrowRight size={17}></ArrowRight></Button>
